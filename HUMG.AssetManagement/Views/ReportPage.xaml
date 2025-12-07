@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="HUMG.AssetManagement.Views.ReportPage"
+             Title="Báo cáo Thống kê"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Header báo cáo -->
+            <Border BackgroundColor="#0066CC"
+        StrokeThickness="0"
+        Padding="20"
+        StrokeShape="RoundRectangle 15">
+                <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <Image Source="humg_logo.png"
+               HeightRequest="60"
+               WidthRequest="60"
+               Aspect="AspectFit"/>
+                    <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                        <Label Text="📊 BÁO CÁO THỐNG KÊ TÀI SẢN"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"/>
+                        <Label x:Name="ReportDateLabel"
+                   Text="Cập nhật: 23/11/2025"
+                   FontSize="14"
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- Tổng quan số liệu -->
+            <Label Text="TỔNG QUAN"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#0066CC"/>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15" RowSpacing="15">
+                <!-- Tổng tài sản -->
+                <Border Grid.Column="0"
+                        BackgroundColor="White"
+                        StrokeThickness="0"
+                        Padding="15"
+                        StrokeShape="RoundRectangle 12">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="📦" FontSize="32" HorizontalTextAlignment="Center"/>
+                        <Label x:Name="TotalAssetsLabel"
+                               Text="0"
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               TextColor="#0066CC"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Tổng tài sản"
+                               FontSize="14"
+                               TextColor="#666"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Tổng giá trị -->
+                <Border Grid.Column="1"
+                        BackgroundColor="White"
+                        StrokeThickness="0"
+                        Padding="15"
+                        StrokeShape="RoundRectangle 12">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="💰" FontSize="32" HorizontalTextAlignment="Center"/>
+                        <Label x:Name="TotalValueLabel"
+                               Text="0đ"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#FF9800"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Tổng giá trị"
+                               FontSize="14"
+                               TextColor="#666"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Biểu đồ trạng thái -->
+            <Label Text="THỐNG KÊ THEO TRẠNG THÁI"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#0066CC"
+                   Margin="0,10,0,0"/>
+
+            <Border BackgroundColor="White"
+                    StrokeThickness="0"
+                    Padding="15"
+                    StrokeShape="RoundRectangle 12">
+                <VerticalStackLayout Spacing="15">
+                    <microcharts:ChartView x:Name="StatusChart"
+                                          HeightRequest="250"/>
+
+                    <!-- Chú thích -->
+                    <Grid ColumnDefinitions="*,*" RowSpacing="10">
+                        <HorizontalStackLayout Grid.Column="0" Spacing="10">
+                            <BoxView Color="#4CAF50" WidthRequest="20" HeightRequest="20" CornerRadius="3"/>
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="Đang sử dụng" FontSize="12" TextColor="#333"/>
+                                <Label x:Name="InUseCountLabel" Text="0 tài sản" FontSize="11" TextColor="#999"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Grid.Column="1" Spacing="10">
+                            <BoxView Color="#F44336" WidthRequest="20" HeightRequest="20" CornerRadius="3"/>
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="Hỏng" FontSize="12" TextColor="#333"/>
+                                <Label x:Name="DamagedCountLabel" Text="0 tài sản" FontSize="11" TextColor="#999"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Spacing="10">
+                            <BoxView Color="#999999" WidthRequest="20" HeightRequest="20" CornerRadius="3"/>
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="Thanh lý" FontSize="12" TextColor="#333"/>
+                                <Label x:Name="RetiredCountLabel" Text="0 tài sản" FontSize="11" TextColor="#999"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Biểu đồ theo loại -->
+            <Label Text="THỐNG KÊ THEO LOẠI TÀI SẢN"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#0066CC"
+                   Margin="0,10,0,0"/>
+
+            <Border BackgroundColor="White"
+                    StrokeThickness="0"
+                    Padding="15"
+                    StrokeShape="RoundRectangle 12">
+                <VerticalStackLayout Spacing="10">
+                    <microcharts:ChartView x:Name="CategoryChart"
+                                          HeightRequest="250"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Thống kê theo phòng ban -->
+            <Label Text="THỐNG KÊ THEO PHÒNG BAN"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#0066CC"
+                   Margin="0,10,0,0"/>
+
+            <Border BackgroundColor="White"
+                    StrokeThickness="0"
+                    Padding="15"
+                    StrokeShape="RoundRectangle 12">
+                <CollectionView x:Name="DepartmentCollectionView"
+                               HeightRequest="300">
+                    <CollectionView.EmptyView>
+                        <Label Text="Chưa có dữ liệu"
+                               TextColor="#999"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,20,0,0"/>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,5,0,5"
+                                    Padding="15"
+                                    BackgroundColor="#F8F8F8"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10">
+                                <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="15">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding DepartmentName}"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#333"
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Count, StringFormat='{0} TS'}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#0066CC"
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="2"
+                                           Text="{Binding TotalValue, StringFormat='{0:N0}đ'}"
+                                           FontSize="14"
+                                           TextColor="#FF9800"
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
+            <!-- Nút xuất báo cáo -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15" Margin="0,10,0,20">
+                <Button Grid.Column="0"
+                        Text="📄 Xuất PDF"
+                        BackgroundColor="#0066CC"
+                        TextColor="White"
+                        CornerRadius="10"
+                        HeightRequest="50"
+                        Clicked="OnExportPdfClicked"/>
+                <Button Grid.Column="1"
+                        Text="📊 Xuất Excel"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"
+                        CornerRadius="10"
+                        HeightRequest="50"
+                        Clicked="OnExportExcelClicked"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HUMG.AssetManagement.Views.MainPage"
+             Title="Quản lý Tài sản HUMG"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Header -->
+            <Border BackgroundColor="#0066CC" 
+        StrokeThickness="0"
+        Padding="20"
+        StrokeShape="RoundRectangle 15">
+                <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <!-- Thêm logo nhỏ -->
+                    <Image Source="humg_logo.png"
+               HeightRequest="50"
+               WidthRequest="50"
+               Aspect="AspectFit"/>
+                    <VerticalStackLayout Spacing="10" VerticalOptions="Center">
+                        <Label Text="HỆ THỐNG QUẢN LÝ TÀI SẢN"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"/>
+                        <Label x:Name="WelcomeLabel"
+                   Text="Xin chào, Admin"
+                   FontSize="16"
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- Thống kê nhanh -->
+            <Label Text="THỐNG KÊ TỔNG QUAN"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#0066CC"
+                   Margin="0,10,0,10"/>
+
+            <Grid ColumnDefinitions="*,*" 
+                  RowDefinitions="Auto,Auto"
+                  ColumnSpacing="15"
+                  RowSpacing="15">
+
+                <!-- Tổng tài sản -->
+                <Border Grid.Row="0" Grid.Column="0" 
+                        BackgroundColor="#E3F2FD"
+                        StrokeThickness="0"
+                        Padding="15"
+                        StrokeShape="RoundRectangle 10">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="📦" FontSize="30" HorizontalTextAlignment="Center"/>
+                        <Label x:Name="TotalAssetsLabel"
+                               Text="0"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#0066CC"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Tổng tài sản"
+                               FontSize="14"
+                               TextColor="#666"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Đang sử dụng -->
+                <Border Grid.Row="0" Grid.Column="1"
+                        BackgroundColor="#E8F5E9"
+                        StrokeThickness="0"
+                        Padding="15"
+                        StrokeShape="RoundRectangle 10">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="✅" FontSize="30" HorizontalTextAlignment="Center"/>
+                        <Label x:Name="InUseAssetsLabel"
+                               Text="0"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#4CAF50"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Đang sử dụng"
+                               FontSize="14"
+                               TextColor="#666"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Hỏng hóc -->
+                <Border Grid.Row="1" Grid.Column="0"
+                        BackgroundColor="#FFEBEE"
+                        StrokeThickness="0"
+                        Padding="15"
+                        StrokeShape="RoundRectangle 10">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="⚠️" FontSize="30" HorizontalTextAlignment="Center"/>
+                        <Label x:Name="DamagedAssetsLabel"
+                               Text="0"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#F44336"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Hỏng hóc"
+                               FontSize="14"
+                               TextColor="#666"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Tổng giá trị -->
+                <Border Grid.Row="1" Grid.Column="1"
+                        BackgroundColor="#FFF3E0"
+                        StrokeThickness="0"
+                        Padding="15"
+                        StrokeShape="RoundRectangle 10">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="💰" FontSize="30" HorizontalTextAlignment="Center"/>
+                        <Label x:Name="TotalValueLabel"
+                               Text="0đ"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="#FF9800"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Tổng giá trị"
+                               FontSize="14"
+                               TextColor="#666"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Menu chức năng -->
+            <Label Text="CHỨC NĂNG"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#0066CC"
+                   Margin="0,20,0,10"/>
+
+            <Border StrokeThickness="0" 
+                    Padding="0" 
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 10">
+                <VerticalStackLayout Spacing="1">
+                    <!-- Đổi mật khẩu -->
+                    <BoxView HeightRequest="1" Color="#EEEEEE"/>
+                    <Border Padding="15" 
+        StrokeThickness="0" 
+        BackgroundColor="White">
+                        <HorizontalStackLayout Spacing="15">
+                            <Label Text="🔑" FontSize="24"/>
+                            <Label Text="Đổi mật khẩu" 
+               VerticalOptions="Center"
+               FontSize="16"
+               TextColor="#333"/>
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnChangePasswordTapped"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <!-- Đăng xuất -->
+                    <BoxView HeightRequest="1" Color="#EEEEEE"/>
+                    <!-- ... phần Đăng xuất giữ nguyên ... -->
+
+                    <!-- Danh sách tài sản -->
+                    <Border Padding="15" 
+                            StrokeThickness="0" 
+                            BackgroundColor="White">
+                        <HorizontalStackLayout Spacing="15">
+                            <Label Text="📋" FontSize="24"/>
+                            <Label Text="Danh sách tài sản" 
+                                   VerticalOptions="Center"
+                                   FontSize="16"
+                                   TextColor="#333"/>
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAssetListTapped"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <!-- Thêm tài sản mới -->
+                    <BoxView HeightRequest="1" Color="#EEEEEE"/>
+                    <Border Padding="15" 
+                            StrokeThickness="0" 
+                            BackgroundColor="White">
+                        <HorizontalStackLayout Spacing="15">
+                            <Label Text="➕" FontSize="24"/>
+                            <Label Text="Thêm tài sản mới" 
+                                   VerticalOptions="Center"
+                                   FontSize="16"
+                                   TextColor="#333"/>
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAddAssetTapped"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <!-- Báo cáo thống kê -->
+                    <BoxView HeightRequest="1" Color="#EEEEEE"/>
+                    <Border Padding="15" 
+                            StrokeThickness="0" 
+                            BackgroundColor="White">
+                        <HorizontalStackLayout Spacing="15">
+                            <Label Text="📊" FontSize="24"/>
+                            <Label Text="Báo cáo thống kê" 
+                                   VerticalOptions="Center"
+                                   FontSize="16"
+                                   TextColor="#333"/>
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnReportTapped"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <!-- Lịch sử thay đổi -->
+                    <BoxView HeightRequest="1" Color="#EEEEEE"/>
+                    <Border Padding="15" 
+                            StrokeThickness="0" 
+                            BackgroundColor="White">
+                        <HorizontalStackLayout Spacing="15">
+                            <Label Text="📅" FontSize="24"/>
+                            <Label Text="Lịch sử thay đổi" 
+                                   VerticalOptions="Center"
+                                   FontSize="16"
+                                   TextColor="#333"/>
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHistoryTapped"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <!-- Đăng xuất -->
+                    <BoxView HeightRequest="1" Color="#EEEEEE"/>
+                    <Border Padding="15" 
+                            StrokeThickness="0" 
+                            BackgroundColor="White">
+                        <HorizontalStackLayout Spacing="15">
+                            <Label Text="🚪" FontSize="24"/>
+                            <Label Text="Đăng xuất" 
+                                   VerticalOptions="Center"
+                                   FontSize="16"
+                                   TextColor="#F44336"/>
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLogoutTapped"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

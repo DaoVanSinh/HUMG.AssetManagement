@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HUMG.AssetManagement.Views.AddEditAssetPage"
+             Title="Thêm Tài sản"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Ảnh tài sản -->
+            <Border HeightRequest="200"
+                    BackgroundColor="White"
+                    StrokeThickness="1"
+                    Stroke="#DDDDDD"
+                    StrokeShape="RoundRectangle 12">
+                <Grid>
+                    <Image x:Name="AssetImage"
+                           Aspect="AspectFill"
+                           Source="dotnet_bot.png"/>
+                    <Button Text="📷 Chọn ảnh"
+                            BackgroundColor="#0066CC"
+                            TextColor="White"
+                            CornerRadius="8"
+                            WidthRequest="150"
+                            HorizontalOptions="Center"
+                            VerticalOptions="End"
+                            Margin="0,0,0,15"
+                            Clicked="OnSelectImageClicked"/>
+                </Grid>
+            </Border>
+
+            <!-- Mã tài sản -->
+            <Label Text="Mã tài sản *" 
+                   FontSize="14" 
+                   FontAttributes="Bold" 
+                   TextColor="#333"/>
+            <Border StrokeThickness="1" 
+                    Stroke="#DDDDDD" 
+                    BackgroundColor="White" 
+                    StrokeShape="RoundRectangle 10">
+                <Entry x:Name="AssetCodeEntry" 
+                       Placeholder="Nhập mã tài sản" 
+                       PlaceholderColor="#999999"
+                       TextColor="#333333"
+                       FontSize="16"
+                       Margin="10"/>
+            </Border>
+
+            <!-- Tên tài sản -->
+            <Label Text="Tên tài sản *" 
+                   FontSize="14" 
+                   FontAttributes="Bold" 
+                   TextColor="#333"/>
+            <Border StrokeThickness="1" 
+                    Stroke="#DDDDDD" 
+                    BackgroundColor="White" 
+                    StrokeShape="RoundRectangle 10">
+                <Entry x:Name="AssetNameEntry" 
+                       Placeholder="Nhập tên tài sản" 
+                       PlaceholderColor="#999999"
+                       TextColor="#333333"
+                       FontSize="16"
+                       Margin="10"/>
+            </Border>
+
+            <!-- Loại tài sản -->
+            <Label Text="Loại tài sản *" 
+                   FontSize="14" 
+                   FontAttributes="Bold" 
+                   TextColor="#333"/>
+            <Border StrokeThickness="1" 
+                    Stroke="#DDDDDD" 
+                    BackgroundColor="White" 
+                    StrokeShape="RoundRectangle 10">
+                <Picker x:Name="CategoryPicker" 
+                        TextColor="#333333"
+                        FontSize="16"
+                        Margin="10">
+                    <Picker.Items>
+                        <x:String>Máy tính</x:String>
+                        <x:String>Thiết bị văn phòng</x:String>
+                        <x:String>Nội thất</x:String>
+                        <x:String>Xe cộ</x:String>
+                        <x:String>Thiết bị y tế</x:String>
+                        <x:String>Thiết bị thí nghiệm</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Border>
+
+            <!-- Giá mua -->
+            <Label Text="Giá mua (VNĐ) *" 
+                   FontSize="14" 
+                   FontAttributes="Bold" 
+                   TextColor="#333"/>
+            <Border StrokeThickness="1" 
+                    Stroke="#DDDDDD" 
+                    BackgroundColor="White" 
+                    StrokeShape="RoundRectangle 10">
+                <Entry x:Name="PriceEntry" 
+                       Placeholder="Nhập giá mua" 
+                       PlaceholderColor="#999999"
+                       TextColor="#333333"
+                       FontSize="16"
+                       Keyboard="Numeric" 
+                       Margin="10"/>
+            </Border>
+
+            <!-- Ngày mua -->
+            <Label Text="Ngày mua *" 
+                   FontSize="14" 
+                   FontAttributes="Bold" 
+                   TextColor="#333"/>
+            <Border StrokeThickness="1" 
+                    Stroke="#DDDDDD" 
+                    BackgroundColor="White" 
+                    StrokeShape="RoundRectangle 10">
+                <DatePicker x:Name="PurchaseDatePicker" 
+                            TextColor="#333333"
+                            FontSize="16"
+                            Margin="10"/>
+            </Border>
+
+            <!-- Trạng thái -->
+            <Label Text="Trạng thái *" 
+                   FontSize="14" 
+                   FontAttributes="Bold" 
+                   TextColor="#333"/>
+            <Border StrokeThickness="1" 
+                    Stroke="#DDDDDD" 
+                    BackgroundColor="White" 
+                    StrokeShape="RoundRectangle 10">
+                <Picker x:Name="StatusPicker" 
+                        TextColor="#333333"
+                        FontSize="16"
+                        Margin="10">
+                    <Picker.Items>
+                        <x:String>Đang sử dụng</x:String>
+                        <x:String>Hỏng</x:String>
+                        <x:String>Thanh lý</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Border>
+
+            <!-- Vị trí -->
+            <Label Text="Vị trí" 
+                   FontSize="14" 
+                   FontAttributes="Bold" 
+                   TextColor="#333"/>
+            <Border StrokeThickness="1" 
+                    Stroke="#DDDDDD" 
+                    BackgroundColor="White" 
+                    StrokeShape="RoundRectangle 10">
+                <Entry x:Name="LocationEntry" 
+                       Placeholder="Nhập vị trí" 
+                       PlaceholderColor="#999999"
+                       TextColor="#333333"
+                       FontSize="16"
+                       Margin="10"/>
+            </Border>
+
+            <!-- Phòng ban -->
+            <Label Text="Phòng ban" 
+                   FontSize="14" 
+                   FontAttributes="Bold" 
+                   TextColor="#333"/>
+            <Border StrokeThickness="1" 
+                    Stroke="#DDDDDD" 
+                    BackgroundColor="White" 
+                    StrokeShape="RoundRectangle 10">
+                <Entry x:Name="DepartmentEntry" 
+                       Placeholder="Nhập tên phòng ban" 
+                       PlaceholderColor="#999999"
+                       TextColor="#333333"
+                       FontSize="16"
+                       Margin="10"/>
+            </Border>
+
+            <!-- Mô tả -->
+            <Label Text="Mô tả" 
+                   FontSize="14" 
+                   FontAttributes="Bold" 
+                   TextColor="#333"/>
+            <Border StrokeThickness="1" 
+                    Stroke="#DDDDDD" 
+                    BackgroundColor="White" 
+                    StrokeShape="RoundRectangle 10">
+                <Editor x:Name="DescriptionEditor" 
+                        Placeholder="Nhập mô tả chi tiết" 
+                        PlaceholderColor="#999999"
+                        TextColor="#333333"
+                        FontSize="16"
+                        HeightRequest="100"
+                        Margin="10"
+                        AutoSize="TextChanges"/>
+            </Border>
+
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15" Margin="0,20,0,0">
+                <Button Grid.Column="0"
+                        Text="Hủy"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#666666"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        HeightRequest="50"
+                        Clicked="OnCancelClicked"/>
+                <Button Grid.Column="1"
+                        Text="Lưu"
+                        BackgroundColor="#0066CC"
+                        TextColor="White"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        HeightRequest="50"
+                        Clicked="OnSaveClicked"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

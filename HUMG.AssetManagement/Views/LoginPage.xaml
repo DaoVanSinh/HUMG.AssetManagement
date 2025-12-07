@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HUMG.AssetManagement.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+
+            <!-- Logo HUMG -->
+            <Border HeightRequest="140"
+        WidthRequest="140"
+        StrokeThickness="0"
+        HorizontalOptions="Center"
+        Margin="0,0,0,20"
+        BackgroundColor="Transparent"
+        StrokeShape="RoundRectangle 70">
+                <Image Source="humg_logo.png"
+           Aspect="AspectFit"
+           HeightRequest="140"
+           WidthRequest="140"/>
+            </Border>
+
+            <!-- Tiêu đề -->
+            <Label Text="TRƯỜNG ĐẠI HỌC MỎ - ĐỊA CHẤT"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#0066CC"
+                   HorizontalTextAlignment="Center"/>
+
+            <Label Text="HỆ THỐNG QUẢN LÝ TÀI SẢN"
+                   FontSize="16"
+                   TextColor="#333333"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,0,0,30"/>
+
+            <!-- Form đăng nhập -->
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="20"
+                    StrokeShape="RoundRectangle 15">
+                <VerticalStackLayout Spacing="15">
+
+                    <Label Text="ĐĂNG NHẬP HỆ THỐNG"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#0066CC"
+                           HorizontalTextAlignment="Center"
+                           Margin="0,0,0,20"/>
+
+                    <!-- Tài khoản -->
+                    <Border StrokeThickness="1"
+                            Stroke="#DDDDDD"
+                            Padding="0"
+                            StrokeShape="RoundRectangle 10">
+                        <Entry x:Name="UsernameEntry"
+                               Placeholder="Tài khoản"
+                               PlaceholderColor="#999999"
+                               TextColor="#333333"
+                               FontSize="16"
+                               Margin="15,10"/>
+                    </Border>
+
+                    <!-- Mật khẩu -->
+                    <Border StrokeThickness="1"
+                            Stroke="#DDDDDD"
+                            Padding="0"
+                            StrokeShape="RoundRectangle 10">
+                        <Entry x:Name="PasswordEntry"
+                               Placeholder="Mật khẩu"
+                               IsPassword="True"
+                               PlaceholderColor="#999999"
+                               TextColor="#333333"
+                               FontSize="16"
+                               Margin="15,10"/>
+                    </Border>
+
+                    <!-- Ghi nhớ đăng nhập -->
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox x:Name="RememberCheckBox" Color="#0066CC"/>
+                        <Label Text="Ghi nhớ đăng nhập" 
+                               VerticalOptions="Center"
+                               TextColor="#666666"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Nút đăng nhập -->
+                    <Button Text="ĐĂNG NHẬP"
+                            BackgroundColor="#0066CC"
+                            TextColor="White"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            CornerRadius="10"
+                            HeightRequest="50"
+                            Clicked="OnLoginClicked"
+                            Margin="0,20,0,0"/>
+
+                    <!-- Quên mật khẩu -->
+                    <Label Text="Quên mật khẩu?"
+                           TextColor="#0066CC"
+                           HorizontalTextAlignment="Center"
+                           FontSize="14">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnForgotPasswordTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Footer -->
+            <Label Text="© 2024 Trường Đại học Mỏ - Địa chất Hà Nội"
+                   FontSize="12"
+                   TextColor="#999999"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,30,0,0"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

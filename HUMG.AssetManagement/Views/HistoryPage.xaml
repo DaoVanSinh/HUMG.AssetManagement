@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HUMG.AssetManagement.Views.HistoryPage"
+             Title="Lịch sử Thay đổi"
+             BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header với bộ lọc -->
+        <VerticalStackLayout Grid.Row="0" Padding="15" Spacing="10" BackgroundColor="White">
+
+            <!-- Thống kê -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                <Border Grid.Column="0"
+                        BackgroundColor="#E3F2FD"
+                        StrokeThickness="0"
+                        Padding="10"
+                        StrokeShape="RoundRectangle 8">
+                    <VerticalStackLayout Spacing="3">
+                        <Label x:Name="TotalHistoryLabel"
+                               Text="0"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="#0066CC"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Tổng số"
+                               FontSize="11"
+                               TextColor="#666"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="1"
+                        BackgroundColor="#E8F5E9"
+                        StrokeThickness="0"
+                        Padding="10"
+                        StrokeShape="RoundRectangle 8">
+                    <VerticalStackLayout Spacing="3">
+                        <Label x:Name="TodayHistoryLabel"
+                               Text="0"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="#4CAF50"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Hôm nay"
+                               FontSize="11"
+                               TextColor="#666"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="2"
+                        BackgroundColor="#FFF3E0"
+                        StrokeThickness="0"
+                        Padding="10"
+                        StrokeShape="RoundRectangle 8">
+                    <VerticalStackLayout Spacing="3">
+                        <Label x:Name="ThisWeekHistoryLabel"
+                               Text="0"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="#FF9800"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Tuần này"
+                               FontSize="11"
+                               TextColor="#666"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Bộ lọc theo hành động -->
+            <Label Text="Lọc theo hành động:"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   TextColor="#333"
+                   Margin="0,10,0,5"/>
+
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="8">
+                <Button Grid.Column="0"
+                        x:Name="AllActionBtn"
+                        Text="Tất cả"
+                        BackgroundColor="#0066CC"
+                        TextColor="White"
+                        FontSize="12"
+                        CornerRadius="8"
+                        Padding="5"
+                        Clicked="OnFilterActionClicked"/>
+                <Button Grid.Column="1"
+                        x:Name="AddActionBtn"
+                        Text="Thêm mới"
+                        BackgroundColor="#E8F5E9"
+                        TextColor="#4CAF50"
+                        FontSize="12"
+                        CornerRadius="8"
+                        Padding="5"
+                        Clicked="OnFilterActionClicked"/>
+                <Button Grid.Column="2"
+                        x:Name="EditActionBtn"
+                        Text="Sửa"
+                        BackgroundColor="#E3F2FD"
+                        TextColor="#2196F3"
+                        FontSize="12"
+                        CornerRadius="8"
+                        Padding="5"
+                        Clicked="OnFilterActionClicked"/>
+                <Button Grid.Column="3"
+                        x:Name="DeleteActionBtn"
+                        Text="Xóa"
+                        BackgroundColor="#FFEBEE"
+                        TextColor="#F44336"
+                        FontSize="12"
+                        CornerRadius="8"
+                        Padding="5"
+                        Clicked="OnFilterActionClicked"/>
+            </Grid>
+
+            <!-- Bộ lọc theo thời gian -->
+            <Label Text="Lọc theo thời gian:"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   TextColor="#333"
+                   Margin="0,10,0,5"/>
+
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="8">
+                <Button Grid.Column="0"
+                        x:Name="AllTimeBtn"
+                        Text="Tất cả"
+                        BackgroundColor="#0066CC"
+                        TextColor="White"
+                        FontSize="12"
+                        CornerRadius="8"
+                        Padding="5"
+                        Clicked="OnFilterTimeClicked"/>
+                <Button Grid.Column="1"
+                        x:Name="TodayBtn"
+                        Text="Hôm nay"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#666"
+                        FontSize="12"
+                        CornerRadius="8"
+                        Padding="5"
+                        Clicked="OnFilterTimeClicked"/>
+                <Button Grid.Column="2"
+                        x:Name="WeekBtn"
+                        Text="Tuần này"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#666"
+                        FontSize="12"
+                        CornerRadius="8"
+                        Padding="5"
+                        Clicked="OnFilterTimeClicked"/>
+                <Button Grid.Column="3"
+                        x:Name="MonthBtn"
+                        Text="Tháng này"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#666"
+                        FontSize="12"
+                        CornerRadius="8"
+                        Padding="5"
+                        Clicked="OnFilterTimeClicked"/>
+            </Grid>
+
+        </VerticalStackLayout>
+
+        <!-- Danh sách lịch sử với RefreshView -->
+        <RefreshView Grid.Row="1" 
+                     x:Name="RefreshViewControl"
+                     Refreshing="OnRefreshing">
+
+            <CollectionView x:Name="HistoryCollectionView"
+                            ItemsSource="{Binding FilteredHistories}"
+                            SelectionMode="None">
+
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout VerticalOptions="Center" 
+                                       HorizontalOptions="Center"
+                                       Padding="40">
+                        <Label Text="📅" FontSize="64" HorizontalTextAlignment="Center"/>
+                        <Label Text="Chưa có lịch sử nào"
+                               FontSize="18"
+                               TextColor="#999999"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,20,0,0"/>
+                        <Label Text="Các thay đổi sẽ được ghi lại tại đây"
+                               FontSize="14"
+                               TextColor="#CCCCCC"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,10,0,0"/>
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="15,8,15,8"
+                                Padding="0"
+                                BackgroundColor="White"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12">
+
+                            <Grid Padding="15" ColumnDefinitions="Auto,*" ColumnSpacing="15">
+
+                                <!-- Icon hành động -->
+                                <Border Grid.Column="0"
+                                        HeightRequest="60"
+                                        WidthRequest="60"
+                                        BackgroundColor="{Binding ActionColor}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 10"
+                                        VerticalOptions="Start">
+                                    <Label Text="{Binding ActionIcon}"
+                                           FontSize="32"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+
+                                <!-- Thông tin lịch sử -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="8" VerticalOptions="Start">
+
+                                    <!-- Tiêu đề hành động -->
+                                    <Label Text="{Binding ActionTitle}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#333333"
+                                           LineBreakMode="WordWrap"/>
+
+                                    <!-- Mô tả -->
+                                    <Label Text="{Binding Description}"
+                                           FontSize="14"
+                                           TextColor="#666666"
+                                           LineBreakMode="WordWrap"/>
+
+                                    <!-- Thông tin thời gian và người thực hiện -->
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" Margin="0,5,0,0">
+                                        <Border Grid.Column="0"
+                                                Padding="6,3"
+                                                BackgroundColor="#F5F5F5"
+                                                StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 4">
+                                            <Label Text="{Binding ActionDate, StringFormat='🕐 {0:dd/MM/yyyy HH:mm}'}"
+                                                   FontSize="12"
+                                                   TextColor="#999999"/>
+                                        </Border>
+                                        <Border Grid.Column="1"
+                                                Padding="6,3"
+                                                BackgroundColor="#F5F5F5"
+                                                StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 4">
+                                            <Label Text="{Binding ActionByName, StringFormat='👤 {0}'}"
+                                                   FontSize="12"
+                                                   TextColor="#999999"/>
+                                        </Border>
+                                    </Grid>
+
+                                    <!-- Nút xem chi tiết tài sản (nếu có) -->
+                                    <Button Text="Xem chi tiết tài sản →"
+                                            BackgroundColor="Transparent"
+                                            TextColor="#0066CC"
+                                            FontSize="13"
+                                            HorizontalOptions="Start"
+                                            Padding="0"
+                                            Margin="0,5,0,0"
+                                            IsVisible="{Binding HasAsset}"
+                                            Clicked="OnViewAssetClicked"
+                                            CommandParameter="{Binding AssetId}"/>
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </RefreshView>
+
+    </Grid>
+
+</ContentPage>

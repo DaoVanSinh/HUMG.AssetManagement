@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HUMG.AssetManagement.Views.AssetListPage"
+             Title="Danh sách Tài sản"
+             BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header với tìm kiếm và lọc -->
+        <VerticalStackLayout Grid.Row="0" Padding="15" Spacing="10" BackgroundColor="White">
+
+            <!-- Thanh tìm kiếm -->
+            <Border StrokeThickness="1"
+                    Stroke="#DDDDDD"
+                    StrokeShape="RoundRectangle 10"
+                    BackgroundColor="#F8F8F8">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Entry x:Name="SearchEntry"
+                           Grid.Column="0"
+                           Placeholder="Tìm kiếm tài sản..."
+                           PlaceholderColor="#999999"
+                           TextColor="#333333"
+                           FontSize="16"
+                           Margin="15,10"
+                           TextChanged="OnSearchTextChanged"/>
+                    <Label Grid.Column="1"
+                           Text="🔍"
+                           FontSize="24"
+                           VerticalOptions="Center"
+                           Margin="0,0,15,0"/>
+                </Grid>
+            </Border>
+
+            <!-- Bộ lọc -->
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <Button Grid.Column="0"
+                        x:Name="AllFilterBtn"
+                        Text="Tất cả"
+                        BackgroundColor="#0066CC"
+                        TextColor="White"
+                        FontSize="14"
+                        CornerRadius="8"
+                        Clicked="OnFilterClicked"/>
+                <Button Grid.Column="1"
+                        x:Name="InUseFilterBtn"
+                        Text="Đang dùng"
+                        BackgroundColor="#E8F5E9"
+                        TextColor="#4CAF50"
+                        FontSize="14"
+                        CornerRadius="8"
+                        Clicked="OnFilterClicked"/>
+                <Button Grid.Column="2"
+                        x:Name="DamagedFilterBtn"
+                        Text="Hỏng"
+                        BackgroundColor="#FFEBEE"
+                        TextColor="#F44336"
+                        FontSize="14"
+                        CornerRadius="8"
+                        Clicked="OnFilterClicked"/>
+                <Button Grid.Column="3"
+                        x:Name="RetiredFilterBtn"
+                        Text="Thanh lý"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#999999"
+                        FontSize="14"
+                        CornerRadius="8"
+                        Clicked="OnFilterClicked"/>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Danh sách tài sản với RefreshView -->
+        <RefreshView Grid.Row="1" 
+                     x:Name="RefreshViewControl"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}">
+
+            <CollectionView x:Name="AssetsCollectionView"
+                            ItemsSource="{Binding FilteredAssets}"
+                            SelectionMode="Single"
+                            SelectionChanged="OnAssetSelected">
+
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout VerticalOptions="Center" 
+                                       HorizontalOptions="Center"
+                                       Padding="40">
+                        <Label Text="📦" FontSize="64" HorizontalTextAlignment="Center"/>
+                        <Label Text="Chưa có tài sản nào"
+                               FontSize="18"
+                               TextColor="#999999"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,20,0,0"/>
+                        <Label Text="Nhấn nút + để thêm tài sản mới"
+                               FontSize="14"
+                               TextColor="#CCCCCC"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,10,0,0"/>
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="15,5,15,5"
+                                Padding="0"
+                                BackgroundColor="White"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12">
+
+                            <Grid Padding="15" ColumnDefinitions="60,*,Auto" ColumnSpacing="15">
+
+                                <!-- Icon hoặc ảnh tài sản -->
+                                <Border Grid.Column="0"
+                                        HeightRequest="60"
+                                        WidthRequest="60"
+                                        BackgroundColor="#E3F2FD"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 10">
+                                    <Label Text="{Binding CategoryIcon}"
+                                           FontSize="32"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+
+                                <!-- Thông tin tài sản -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                                    <Label Text="{Binding AssetName}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#333333"
+                                           LineBreakMode="TailTruncation"/>
+                                    <Label Text="{Binding AssetCode}"
+                                           FontSize="13"
+                                           TextColor="#0066CC"
+                                           LineBreakMode="TailTruncation"/>
+                                    <Label Text="{Binding Location}"
+                                           FontSize="12"
+                                           TextColor="#666666"
+                                           LineBreakMode="TailTruncation"/>
+                                    <Label Text="{Binding PurchasePrice, StringFormat='{0:N0}đ'}"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#FF9800"/>
+                                </VerticalStackLayout>
+
+                                <!-- Trạng thái -->
+                                <Border Grid.Column="2"
+                                        Padding="10,5"
+                                        BackgroundColor="{Binding StatusColor}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 5"
+                                        VerticalOptions="Center">
+                                    <Label Text="{Binding Status}"
+                                           FontSize="12"
+                                           TextColor="White"
+                                           FontAttributes="Bold"/>
+                                </Border>
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Nút thêm tài sản mới (Floating Action Button) -->
+        <Border Grid.Row="1"
+                HeightRequest="60"
+                WidthRequest="60"
+                BackgroundColor="#0066CC"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 30"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="20">
+            <Label Text="+"
+                   FontSize="36"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnAddAssetClicked"/>
+            </Border.GestureRecognizers>
+            <Border.Shadow>
+                <Shadow Brush="Black" Opacity="0.3" Radius="10" Offset="0,4"/>
+            </Border.Shadow>
+        </Border>
+
+    </Grid>
+
+</ContentPage>
